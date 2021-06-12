@@ -1,0 +1,8 @@
+source leaprc.gaff
+source leaprc.water.tip3p
+m = loadmol2 filename.mol2
+loadamberparams filename.frcmod
+solvateOct m TIP3PBOX 10
+saveoff m filename.lib
+saveamberparm m filename.prmtop filename.rst7
+quit

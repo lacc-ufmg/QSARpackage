@@ -1,0 +1,17 @@
+name: QSAR2
+channels:
+  - anaconda
+  - conda-forge
+  - schrodinger
+  - ambermd
+  - omnia
+  - defaults
+dependencies:
+  - click
+  - openbabel=2.4.1
+  - rdkit
+  - numpy
+  - pandas
+  - ambertools=20
+  - openmm
+
