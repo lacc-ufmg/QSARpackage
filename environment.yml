@@ -1,4 +1,4 @@
-name: QSAR2
+name: QSAR
 channels:
   - anaconda
   - conda-forge
