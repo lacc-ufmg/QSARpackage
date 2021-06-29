@@ -10,7 +10,7 @@ dependencies:
   - click
   - openbabel
   - rdkit
-  - numpy
+  - numpy=1.18.5
   - pandas
   - ambertools=20
   - openmm
