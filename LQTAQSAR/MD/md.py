@@ -129,8 +129,8 @@ class MolecularDynamics():
 		simulation.reporters.append(PDBReporter(name+str(310)+'.pdb', 5000))
 		simulation.reporters.append(StateDataReporter(stdout, 10000, step=True,
 		        potentialEnergy=True, temperature=True))
-		simulation.step(25000) # para teste
-		# simulation.step(250000)
+		# simulation.step(25000) # para teste
+		simulation.step(250000)
 		self.deleteH2O(name+str(310)+'.pdb',name+"_PAC.pdb")
 		if not os.path.exists(os.path.join(self.directory,"output_dir")):
 			os.makedirs(os.path.join(self.directory,"output_dir"))
