@@ -54,3 +54,18 @@ python caminho_para_pasta_QSARpackage/QSARpackage/runMD.py -m . -e mol2 -s *~2~*
 
 As opções relativas aos alinhamentos e LQTAGrid não são  obrigatórias. O alnhamento pode ser rodado posteriormente com o programa runAlignment.py e o LQTAGrid pode ser rodado com o programa runLQTAGrid.py
 
+5. Para gerar apenas os descritores 3D ou 4D
+
+5.1. De dentro do diretório QSARpackage python runLQTAGrid.py -m diretorio -e extensão -a NH3+ -s step -o diretorio/matriz
+
+-diretorio: diretório contendo arquivos com as moléculas. Pode ser qualquer formato de arquivo que o openbabel entenda
+
+-extensão: extensão dos arquivo com as moléculas (mol2, por exemplo)
+
+-alinhamentos: arquivo csv, com a primeira coluna contendo os nomes das moléculas e a segunda contendo os átomos para os alinhamentos. As colunas devem ser separadas por ;
+
+-sondas: sondas utilizadas para calcular os descritores com o LQTAgrid (NH3+, por exemplo)
+
+-step: Tamanho do passo que a sonda percorre em angstrom.
+
+

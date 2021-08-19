@@ -39,12 +39,11 @@ class MatrixGenerate():
         else:
             molecule = pybel.readfile("mol2",fileName)
 
-        print(molecule)
-
         self.X = empty((0,3))
         self.numberElements = 0
         for c in molecule:
-            self.numberElements = len(c.atoms)
+            if self.numberElements == 0:
+                self.numberElements = len(c.atoms)
             for a in c.atoms:
                 self.X = vstack((self.X,a.coords))
         self.minimos = self.X.min(axis=0)
@@ -75,8 +74,8 @@ class MatrixGenerate():
             self.c6.append(4*e*s**6)
             self.c12.append(4*e*s**12)
 
-        print(fileName)
-        print(self.cargas)
+        # print(fileName)
+        # print(self.cargas)
 
         # molecule = Chem.MolFromMol2File(fileName,removeHs=False)
         # self.cargas = [a.GetProp('_TriposPartialCharge') for a in molecule.GetAtoms()]
