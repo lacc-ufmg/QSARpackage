@@ -2,7 +2,7 @@
 import os
 import sys
 import click
-from LQTAQSAR.MD.md import *
+import qsar_package
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -47,7 +47,7 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
               )
 
 def run(mols,extension,alignment_file,smarts,atom,step):
-	md = MolecularDynamics(mols,extension,alignment_file,smarts,atom,step)
+	md = qsar_package.md.MolecularDynamics(mols,extension,alignment_file,smarts,atom,step)
 	md.run_MD_set()
 	if alignment_file is None and smarts is None:
 		pass

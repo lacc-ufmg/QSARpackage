@@ -2,7 +2,7 @@
 # coding: utf-8
 
 import click
-from ..lqtagrid.grid_generate import *
+from qsar_package.lqtagrid.grid_generate import *
 #from . import grid_generate
 
 

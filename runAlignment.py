@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import click
-from LQTAQSAR.MD.align import *
+from qsar_package.md.align import *
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
