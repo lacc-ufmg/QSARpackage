@@ -2,11 +2,10 @@
 # coding: utf-8
 
 import math
-import re
 import os
 from ..lqtagrid import utils
 from scipy.spatial import ConvexHull
-from src.LQTAGrid import generate_points
+from . import generate_points
 #from . import utils
 from numpy import arange
 from numpy import zeros

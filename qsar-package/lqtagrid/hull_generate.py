@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-from ..lqtagrid import matrix_generate
+from . import matrix_generate
 import numpy as np
 import pandas as pd
 import os
