@@ -1,4 +1,4 @@
-name: QSAR
+name: qsarpackage
 channels:
   - conda-forge
   - anaconda
@@ -9,8 +9,9 @@ dependencies:
   - rdkit
   - numpy
   - pandas
-  - ambertools=22
+  - ambertools=22.*
   - openmm
   - openmmforcefields
   - acpype
-
+  - hatchling
+  - scipy
