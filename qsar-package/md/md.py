@@ -10,8 +10,8 @@ from openmmforcefields.generators import GAFFTemplateGenerator
 from sys import stdout
 import xml.etree.ElementTree as ET
 from openbabel import pybel
-from LQTAQSAR.MD.align import *
-from LQTAQSAR.LQTAGrid.grid_generate import GridGenerate
+from ..md.align import *
+from ..lqtagrid.grid_generate import GridGenerate
 
 class MolecularDynamics():
 

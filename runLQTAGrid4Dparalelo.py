@@ -2,7 +2,7 @@
 # coding: utf-8
 
 import click
-from LQTAQSAR.LQTAGrid4Dparalelo.grid_generate import *
+from ..lqtagrid_4d.grid_generate import *
 #from . import grid_generate
 
 

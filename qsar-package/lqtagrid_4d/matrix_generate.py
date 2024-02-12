@@ -4,7 +4,7 @@
 import math
 import re
 import os
-import LQTAQSAR.LQTAGrid4D.utils as utils
+from ..lqtagrid_4d import utils
 #from . import utils
 from numpy import arange
 from numpy import zeros

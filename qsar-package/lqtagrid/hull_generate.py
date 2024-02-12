@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-import LQTAQSAR.LQTAGrid.matrix_generate as matrix_generate
+from ..lqtagrid import matrix_generate
 import numpy as np
 import pandas as pd
 import os
-import re
 
 
 class HullGenerate():

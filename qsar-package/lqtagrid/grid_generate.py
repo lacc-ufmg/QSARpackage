@@ -1,9 +1,7 @@
 #!/usr/bin/env
 # coding: utf-8
 
-import LQTAQSAR.LQTAGrid.matrix_generate as matrix_generate
-#from . import matrix_generate, utils
-import LQTAQSAR.LQTAGrid.utils
+from ..lqtagrid import matrix_generate
 from numpy import arange
 import os
 from pandas import DataFrame

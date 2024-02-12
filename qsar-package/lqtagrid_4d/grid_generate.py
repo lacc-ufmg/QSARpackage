@@ -1,13 +1,12 @@
 #!/usr/bin/env
 # coding: utf-8
 
-import LQTAQSAR.LQTAGrid4D.matrix_generate as matrix_generate
+from ..lqtagrid_4d import matrix_generate
 #from . import matrix_generate, utils
-import LQTAQSAR.LQTAGrid4D.utils
+from ..lqtagrid_4d import utils
 from numpy import arange
 import os
 from pandas import DataFrame
-import pybel
 
 
 class GridGenerate():

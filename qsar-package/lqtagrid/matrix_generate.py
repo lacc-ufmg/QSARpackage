@@ -4,9 +4,9 @@
 import math
 import re
 import os
-import LQTAQSAR.LQTAGrid.utils as utils
+from ..lqtagrid import utils
 from scipy.spatial import ConvexHull
-from LQTAQSAR.LQTAGrid import generate_points
+from src.LQTAGrid import generate_points
 #from . import utils
 from numpy import arange
 from numpy import zeros
