@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling", "hatch-regex-commit"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+  source = "regex_commit"
+  path = "./__about__.py"
+  commit_message = "🚀 Version {new_version}"
+
+[project]
+name = "qsar-package"
+# version = "0.0.1"
+dynamic = ["version"]
+authors = [
+  { name="João Paulo Ataíde Martins", email="joaopauloam@gmail.com" },
+  { name="Heliton Martins", email="helitonmrf@gmail.com" },
+]
+description = "QSAR analysis in Python"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/LQCAPF/QSARpackage"
+Issues = "https://github.com/LQCAPF/QSARpackage/issues"
