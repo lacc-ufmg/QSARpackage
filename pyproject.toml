@@ -7,18 +7,26 @@ build-backend = "hatchling.build"
 name = "qsar-package"
 dynamic = ["version"]
 authors = [
-  { name="João Paulo Ataíde Martins", email="joaopauloam@gmail.com" },
-  { name="Heliton Martins", email="helitonmrf@gmail.com" },
+  { name = "João Paulo Ataíde Martins", email = "joaopauloam@gmail.com" },
+  { name = "Heliton Martins", email = "helitonmrf@gmail.com" },
 ]
 description = "QSAR analysis in Python"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
 ]
-dependencies = ["Click==7.0", "openbabel", "rdkit", "numpy==1.16.4", "pandas==0.24.2", "ambertools", "OpenMM==7.4.1"]
+dependencies = [
+  "Click==7.0",
+  "openbabel",
+  "rdkit",
+  "numpy==1.16.4",
+  "pandas==0.24.2",
+  "ambertools",
+  "OpenMM==7.4.1",
+]
 
 
 [project.urls]
@@ -32,9 +40,7 @@ only-include = [
   "qsar-package/lqtagrid_4d",
   "qsar-package/md",
 ]
-exclude = [
-  "*.ipynb",
-]
+exclude = ["*.ipynb"]
 
 
 [tool.hatch.build.targets.wheel]
