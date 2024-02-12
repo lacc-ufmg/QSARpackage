@@ -1,15 +1,12 @@
 [build-system]
-requires = ["hatchling", "hatch-regex-commit"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-  source = "regex_commit"
-  path = "./__about__.py"
-  commit_message = "🚀 Version {new_version}"
+path = "./__about__.py"
 
 [project]
 name = "qsar-package"
-# version = "0.0.1"
 dynamic = ["version"]
 authors = [
   { name="João Paulo Ataíde Martins", email="joaopauloam@gmail.com" },
