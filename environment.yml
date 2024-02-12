@@ -1,17 +1,16 @@
 name: QSAR
 channels:
-  - anaconda
   - conda-forge
-  - schrodinger
-  - ambermd
-  - omnia
+  - anaconda
   - defaults
 dependencies:
   - click
   - openbabel
   - rdkit
-  - numpy=1.18.5
+  - numpy
   - pandas
-  - ambertools=20
+  - ambertools=22
   - openmm
+  - openmmforcefields
+  - acpype
 

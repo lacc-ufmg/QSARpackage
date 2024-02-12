@@ -23,14 +23,14 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
               )
 @click.option('--coordinates', '-c',
               metavar='<x> <y> <z>',
-              type=int,
+              type=float,
               nargs=3,
               required=False,
               help='Coordinates of the box.'
               )
 @click.option('--dimensions', '-d',
               metavar='<x> <y> <z>',
-              type=int,
+              type=float,
               nargs=3,
               required=False,
               help='Dimensions of the box.'

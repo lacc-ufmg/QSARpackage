@@ -48,14 +48,14 @@ class GridGenerate():
             maximos[2] = max(maximos[2],matrix.maximos[2])
             matrices.append(matrix)
 
-        if coordinates != ():
+        if coordinates != None and coordinates != ():
             x0, y0, z0 = coordinates
         else:
             x0 = int(minimos[0])-2
             y0 = int(minimos[1])-2
             z0 = int(minimos[2])-2
 
-        if dimensions != ():
+        if coordinates != None and dimensions != ():
             dim_x, dim_y, dim_z = dimensions
         else:
             dim_x = int(maximos[0]-minimos[0])+4

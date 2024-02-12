@@ -1,11 +1,15 @@
 import os
 import shutil
 import re
-from simtk.openmm.app import *
-from simtk.openmm import *
-from simtk.unit import *
+from openmm.app import *
+from openmm import *
+from openmm.unit import *
+from openff.toolkit import Molecule
+from openff.units import unit
+from openmmforcefields.generators import GAFFTemplateGenerator
 from sys import stdout
-import openbabel as ob
+import xml.etree.ElementTree as ET
+from openbabel import pybel
 from LQTAQSAR.MD.align import *
 from LQTAQSAR.LQTAGrid.grid_generate import GridGenerate
 
@@ -65,70 +69,104 @@ class MolecularDynamics():
 				if not "HOH" in line and not "CONECT" in line and not "\0" in line:
 					f.write(line)
 
-	def align_PAC(self,filename, smarts):
-		parts = re.search("(.*)\.(\w+)",filename)
-		name = parts.group(1)
-		extension = parts.group(2)
-		os.system('obabel {} {} {} {} {} {}'.format(
-		    filename,
-		    '-O',
-		    name[:-3]+"_PAC.pdb",
-		    '-s',
-		    "\""+smarts+"\"",
-		    '--align'
-		))
+	# def align_PAC(self,filename, smarts):
+	# 	parts = re.search("(.*)\.(\w+)",filename)
+	# 	name = parts.group(1)
+	# 	extension = parts.group(2)
+	# 	os.system('obabel {} {} {} {} {} {}'.format(
+	# 	    filename,
+	# 	    '-O',
+	# 	    name[:-3]+"_PAC.pdb",
+	# 	    '-s',
+	# 	    "\""+smarts+"\"",
+	# 	    '--align'
+	# 	))
 
 
 	def run_MD(self,filename):
 
-		name = re.search("(.*)\.(\w+)",filename).group(1)
-		base_name = re.search("(.*)\.(\w+)",os.path.basename(filename)).group(1)
-		prmtop = AmberPrmtopFile(name+'.prmtop')
-		inpcrd = AmberInpcrdFile(name+'.rst7')
-		system = prmtop.createSystem(nonbondedMethod=PME, nonbondedCutoff=1*nanometer,
-		        constraints=HBonds)
-		os.remove(name+'.prmtop')
-		os.remove(name+'.rst7')
-		os.remove(name+'.frcmod')
-		os.remove(name+'.lib')
+		# name = re.search("(.*)\.(\w+)",filename).group(1)
+		name = os.path.basename(filename).split('.')[0]
+		
+		extension = re.search("(.*)\.(\w+)",filename).group(2)
 
-		temperatures = [50,100,200,350]
+		format_file = "g09" if extension == "log" or extension == "out"  else extension
+
+		mol = list(pybel.readfile(format_file,filename))[0]
+
+		s = mol.write("pdb")
+
+		rdmol = Chem.MolFromPDBBlock(s, removeHs=False)
+
+		molecule = Molecule.from_rdkit(rdmol, allow_undefined_stereo=True, hydrogens_are_explicit=True)
+
+		# Carregando o campo de força gaff
+		gaff = GAFFTemplateGenerator(molecules=molecule)
+		# Gerando o arquivo da topologia da molécula
+		with open('ff.xml', 'w') as f:
+			f.write(gaff.generate_residue_template(molecule))
+		# Substituindo o nome do resíduo no arquivo ff.xml pois ele gera com o smiles
+		tree = ET.parse("ff.xml")
+		root = tree.getroot()
+		res = root.findall("Residues")
+		res[0][0].attrib['name'] = 'UNL'
+		tree.write("ff.xml")
+
+		force_field = ForceField("amber/gaff/ffxml/gaff-2.11.xml","amber14/tip3pfb.xml","ff.xml")
+
+		positions  = [Vec3(p.to_openmm()[0].value_in_unit(nanometers),
+					 p.to_openmm()[1].value_in_unit(nanometers),
+					 p.to_openmm()[2].value_in_unit(nanometers)) 
+					 for p in molecule.to_topology().get_positions()]
+
+		modeller = Modeller(molecule.to_topology().to_openmm(), Quantity(positions, nanometers))
+
+		modeller.addSolvent(force_field, padding=1.0*nanometers)
+
+		system = force_field.createSystem(modeller.topology, nonbondedCutoff=1.0*nanometer, nonbondedMethod=PME, constraints=HBonds)
+
+		t = 50			
+		integrator = LangevinMiddleIntegrator(t*kelvin, 1/picosecond, 0.002*picoseconds)
+		try:
+			platform = Platform.getPlatformByName('CUDA')
+			simulation = Simulation(modeller.topology, system, integrator,platform)
+		except OpenMMException:
+			print("CUDA not found. Running in CPU")
+			simulation = Simulation(modeller.topology, system, integrator)
+		simulation.context.setPositions(modeller.positions)
+		simulation.minimizeEnergy()
+		simulation.reporters.append(StateDataReporter(stdout, 1000, step=True,
+				potentialEnergy=True, temperature=True))
+		print("Running simulation at {} K".format(t))
+		simulation.step(5000)
+		simulation.saveState("eq.xml")
+		simulation.saveCheckpoint("eq.chk")
+
+		temperatures = [100,200,350]
 		for t in temperatures:
+			eq_state = simulation.context.getState(getVelocities=True, getPositions=True)
+			positions = eq_state.getPositions()
+			velocities = eq_state.getVelocities()
+			simulation.context.setPositions(positions)
+			simulation.context.setVelocities(velocities)
+
 			print("Running simulation at {} K".format(t))
-			integrator = LangevinIntegrator(t*kelvin, 1/picosecond, 0.002*picoseconds)
-			simulation = Simulation(prmtop.topology, system, integrator)
-			simulation.context.setPositions(inpcrd.positions)
-			if inpcrd.boxVectors is not None:
-			    simulation.context.setPeriodicBoxVectors(*inpcrd.boxVectors)
-			simulation.minimizeEnergy()
-			simulation.reporters.append(PDBReporter(name+str(t)+'.pdb', 5000))
-			simulation.reporters.append(StateDataReporter(stdout, 1000, step=True,
-			        potentialEnergy=True, temperature=True))
+			integrator.setTemperature(t*kelvin)
 			simulation.step(5000)
-			self.deleteH2O(name+str(t)+'.pdb',name+str(t)+'.pdb')
-			self.run_antechamber(name+str(t)+'.pdb',name+str(t)+'.mol2')
-			prmtop = AmberPrmtopFile(name+str(t)+'.prmtop')
-			inpcrd = AmberInpcrdFile(name+str(t)+'.rst7')
-			system = prmtop.createSystem(nonbondedMethod=PME, nonbondedCutoff=1*nanometer,
-		        constraints=HBonds)
-			os.remove(name+str(t)+'.prmtop')
-			os.remove(name+str(t)+'.rst7')
-			os.remove(name+str(t)+'.frcmod')
-			os.remove(name+str(t)+'.lib')
-			os.remove(name+str(t)+'.pdb')
-			os.remove(name+str(t)+'.mol2')
+			simulation.saveState("eq.xml")
+			simulation.saveCheckpoint("eq.chk")
 
 		# Final simulation at 310 K
 		print("Running simulation at 310 K")
-		integrator = LangevinIntegrator(310*kelvin, 1/picosecond, 0.002*picoseconds)
-		simulation = Simulation(prmtop.topology, system, integrator)
-		simulation.context.setPositions(inpcrd.positions)
-		if inpcrd.boxVectors is not None:
-		    simulation.context.setPeriodicBoxVectors(*inpcrd.boxVectors)
-		simulation.minimizeEnergy()
+		eq_state = simulation.context.getState(getVelocities=True, getPositions=True)
+		positions = eq_state.getPositions()
+		velocities = eq_state.getVelocities()
+		simulation.context.setPositions(positions)
+		simulation.context.setVelocities(velocities)
 		simulation.reporters.append(PDBReporter(name+str(310)+'.pdb', 5000))
 		simulation.reporters.append(StateDataReporter(stdout, 10000, step=True,
 		        potentialEnergy=True, temperature=True))
+		integrator.setTemperature(t*kelvin)
 		# simulation.step(25000) # para teste
 		simulation.step(250000)
 		self.deleteH2O(name+str(310)+'.pdb',name+"_PAC.pdb")
@@ -147,8 +185,8 @@ class MolecularDynamics():
 
 		for filename in os.listdir(directory):
 			if filename.endswith(extension):
-				self.run_antechamber(os.path.join(directory,filename),os.path.join(directory,
-					filename[:-(len(extension)+1)]+".mol2"))
+				# self.run_antechamber(os.path.join(directory,filename),os.path.join(directory,
+				# 	filename[:-(len(extension)+1)]+".mol2"))
 				self.run_MD(os.path.join(directory,filename))
 
 	def runAlignment(self):
