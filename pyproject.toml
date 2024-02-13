@@ -39,13 +39,15 @@ only-include = [
   "qsar-package/lqtagrid",
   "qsar-package/lqtagrid_4d",
   "qsar-package/md",
+  "qsar-package/__init__.py",
+  "qsar-package/__about__.py",
 ]
 exclude = ["*.ipynb"]
 
 
 [tool.hatch.build.targets.wheel]
-packages = ["qsar-package"]
+packages = ["qsar_package"]
 
 
 [tool.hatch.version]
-path = "./__about__.py"
+path = "qsar-package/__about__.py"
