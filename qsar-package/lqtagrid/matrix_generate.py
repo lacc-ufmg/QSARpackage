@@ -3,7 +3,7 @@
 
 import math
 import os
-from ..lqtagrid import utils
+from . import utils
 from scipy.spatial import ConvexHull
 from . import generate_points
 #from . import utils
