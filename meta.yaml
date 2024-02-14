@@ -1,0 +1,42 @@
+package:
+  name: qsar_package
+  version: 0.0.1
+
+source:
+  path: .
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python=3.10
+    - click
+    - numpy
+    - pandas
+    - scipy
+    - openbabel
+    - rdkit
+    - openmm
+    - openmmforcefields
+    - acpype
+
+about:
+  home: https://github.com/lqcapf/qsarpackage
+  license: GPL-3.0-or-later
+  license_family: GPL
+  license_file: LICENSE
+  summary: 'QSAR analysis in Python'
+  description: 'QSAR analysis in Python'
+  dev_url: https://github.com/lqcapf/qsarpackage
+
+build:
+  skip: True # [win]
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+  entry_points:
+    - qsar_package = qsar_package.__main__:main
+
+extra:
+  recipe-maintainers:
+    - hellmrf
+    - joaopauloam
