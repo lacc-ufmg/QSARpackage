@@ -46,7 +46,7 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
               type=float,
               nargs=1,
               required=True,
-              help='Steps for navegation on matrix.'
+              help='Steps for navigation on matrix.'
               )
 @click.option('--output', '-o',
               metavar='<path_output>',
