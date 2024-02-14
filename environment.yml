@@ -4,11 +4,12 @@ channels:
   - anaconda
   - defaults
 dependencies:
+  - python=3.10
   - click
-  - openbabel
-  - rdkit
   - numpy
   - pandas
+  - openbabel
+  - rdkit
   - ambertools=22.*
   - openmm
   - openmmforcefields
