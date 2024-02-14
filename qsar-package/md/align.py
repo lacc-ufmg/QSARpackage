@@ -1,10 +1,8 @@
 from openbabel import pybel
 import os
 import re
-import argparse
 import numpy as np
 import pandas as pd
-from rdkit.Chem import AllChem
 from rdkit import Chem
 from rdkit.Chem.rdMolAlign import AlignMol
 

@@ -13,7 +13,6 @@ from numpy import reshape
 from numpy import empty
 from numpy import vstack
 import pandas as pd
-from rdkit import Chem
 import openbabel as ob
 import pybel
 

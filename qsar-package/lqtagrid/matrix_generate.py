@@ -17,7 +17,6 @@ from numpy import sqrt
 from numpy import linalg
 from numpy import array
 import pandas as pd
-from rdkit import Chem
 from openbabel import openbabel as ob
 from openbabel import pybel
 
