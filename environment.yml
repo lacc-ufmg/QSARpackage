@@ -6,13 +6,13 @@ channels:
 dependencies:
   - python=3.10
   - click
+  - hatchling
   - numpy
   - pandas
+  - scipy
   - openbabel
   - rdkit
   - ambertools=22.*
   - openmm
   - openmmforcefields
   - acpype
-  - hatchling
-  - scipy
