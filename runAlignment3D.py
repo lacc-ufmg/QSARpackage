@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from openbabel import pybel
 import os
 import sys
