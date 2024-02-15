@@ -17,5 +17,3 @@ jobs:
             AnacondaToken: ${{ secrets.CONDA_HELITONMRF_TOKEN }}
             platforms: 'linux osx'
             additional_channels: "-c helitonmrf"
-            override: true
-            dry_run: true
