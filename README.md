@@ -1,14 +1,14 @@
-# Project Name
+# QSARPackage
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-GPLv3.0+-blue.svg)](LICENSE)
 
 ## Description
 
-A brief description of your project.
+QSAR Analysis in Python.
 
 ## Table of Contents
 
-- [Project Name](#project-name)
+- [QSARPackage](#qsarpackage)
   - [Description](#description)
   - [Table of Contents](#table-of-contents)
   - [Build](#build)
