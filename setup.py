@@ -20,7 +20,6 @@ setup(
         # "openbabel",
         # "rdkit",
         # "openmm",
-        # "acpype",
     ],
    
     author="Martins, J. P. A; Reis Filho, H. M.",
@@ -29,14 +28,14 @@ setup(
     long_description=long_description,
     url="https://github.com/lqcapf/qsarpackage",
     # package_dir={"qsar_package": "qsar_package"},
-    package_data={"": ["lqtagrid*/defaultFiles/*", "md/static/*.txt"]},
+    package_data={"": ["lqtagrid/defaultFiles/AtomProva.atp", "lqtagrid/defaultFiles/ffcargasnb.itp", "lqtagrid/defaultFiles/*.csv", "md/static/*.txt"]},
     classifiers=[
         "Development Status :: 1 - Planning",
-        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
         "Operating System :: MacOS",
         "Operating System :: POSIX :: Linux",
-        "Natural Language :: Portuguese (Brazilian)",
+        "Natural Language :: English",
         "Topic :: Scientific/Engineering :: Chemistry"
     ],
     python_requires='>=3.8',
