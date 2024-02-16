@@ -1,5 +1,5 @@
 [project]
-name = "qsar-package"
+name = "qsar_package"
 dynamic = ["version"]
 authors = [
   { name = "João Paulo Ataíde Martins", email = "joaopauloam@gmail.com" },

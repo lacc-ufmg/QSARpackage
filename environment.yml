@@ -4,7 +4,7 @@ channels:
   - anaconda
   - defaults
 dependencies:
-  - python=3.10
+  - python
   - click
   - numpy
   - pandas
@@ -13,4 +13,6 @@ dependencies:
   - rdkit
   - openmm
   - openmmforcefields
-  - acpype
+  - anaconda-client
+  - conda-build
+  - conda-verify
