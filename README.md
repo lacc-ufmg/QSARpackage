@@ -1,6 +1,10 @@
 # QSARPackage
 
-[![License](https://img.shields.io/badge/license-GPLv3.0+-blue.svg)](LICENSE)
+[![License: GPLv3.0+](https://img.shields.io/badge/license-GPLv3.0+-blue.svg?style=flat-square)](LICENSE)
+![Version](https://anaconda.org/helitonmrf/qsar_package/badges/version.svg)
+![Platforms: osx/linux](https://anaconda.org/helitonmrf/qsar_package/badges/platforms.svg)
+![](https://anaconda.org/helitonmrf/qsar_package/badges/latest_release_date.svg)
+![](https://anaconda.org/helitonmrf/qsar_package/badges/downloads.svg)
 
 ## Description
 
