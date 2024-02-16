@@ -13,7 +13,6 @@ dependencies:
   - rdkit
   - openmm
   - openmmforcefields
-  - acpype
   - anaconda-client
   - conda-build
   - conda-verify

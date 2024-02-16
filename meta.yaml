@@ -24,7 +24,6 @@ requirements:
     - rdkit
     - openmm
     - openmmforcefields
-    - acpype
 
 about:
   home: https://github.com/lqcapf/qsarpackage
