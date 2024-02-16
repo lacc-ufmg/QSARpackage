@@ -1,4 +1,4 @@
-name: qsarpackage
+name: qsarpackage2
 channels:
   - conda-forge
   - anaconda
@@ -14,3 +14,6 @@ dependencies:
   - openmm
   - openmmforcefields
   - acpype
+  - anaconda-client
+  - conda-build
+  - conda-verify
