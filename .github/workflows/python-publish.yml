@@ -10,9 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: publish-to-conda
-      uses: hellmrf/conda-publish-action@master
+      uses: hellmrf/conda-publish-action@dev
       with:
         anacondatoken: ${{ secrets.CONDA_HELITONMRF_TOKEN }}
         platforms: 'osx linux'
-        label: test
-        additional_params: -c conda-forge
+        additional_params: -c conda-forge --label dev
