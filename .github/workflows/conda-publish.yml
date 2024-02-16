@@ -45,6 +45,7 @@ jobs:
       - name: conda build
         run: |
           for pyv in ${{ matrix.python-targets }}; do
+            echo -e "\033[1;32mBuilding for ${{ matrix.runs-on }} Python $pyv\033[0m"
             conda build -c conda-forge -c defaults -c bioconda --python $pyv --output-folder . .
           done
 
