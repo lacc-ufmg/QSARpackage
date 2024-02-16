@@ -19,9 +19,11 @@ jobs:
           - os: ubuntu
             runs-on: ubuntu-latest
             conda-bld: linux-64
+            python-targets: "3.8 3.9 3.10 3.11 3.12"
           - os: macos
             runs-on: macos-latest
             conda-bld: osx-64
+            python-targets: "3.8 3.9 3.10 3.11"
         
     steps:
       - name: checkout repository
@@ -42,11 +44,11 @@ jobs:
       
       - name: conda build
         run: |
-          for pyv in 3.8 3.9 3.10 3.11 3.12; do
+          for pyv in ${{ matrix.python-targets }}; do
             conda build -c conda-forge -c defaults -c bioconda --python $pyv --output-folder . .
           done
 
       - name: anaconda upload
         run: |
           export ANACONDA_API_TOKEN=${{ secrets.CONDA_HELITONMRF_TOKEN }}
-          anaconda upload --label dev ${{matrix.conda-bld}}/*.tar.bz2
+          anaconda upload --label dev ${{ matrix.conda-bld }}/*.tar.bz2
