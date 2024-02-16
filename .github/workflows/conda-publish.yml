@@ -1,0 +1,51 @@
+name: conda_publish
+on:
+  push:
+    paths:
+      - 'meta.yaml'
+      - '.github/workflows/conda-publish.yml'
+
+jobs:
+  publish:
+    name: ${{ matrix.runs-on }}
+    runs-on: ${{ matrix.runs-on }}
+    defaults:
+      run:
+        shell: bash -l {0}
+        
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, macos]
+        include:
+          - os: ubuntu
+            runs-on: ubuntu-latest
+            conda-bld: linux-64
+          - os: macos
+            runs-on: macos-latest
+            conda-bld: osx-64
+        
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+        
+      - name: create environment with mamba
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          mamba-version: "*"
+          channels: conda-forge,bioconda,defaults
+          auto-activate-base: false
+          activate-environment: qsarpackage
+          environment-file: environment.yml
+      
+      - name: check env
+        run: |
+          mamba env export
+      
+      - name: conda build
+        run: |
+          conda build -c conda-forge -c defaults -c bioconda --output-folder . .
+      - name: anaconda upload
+        run: |
+          export ANACONDA_API_TOKEN=${{ secrets.CONDA_HELITONMRF_TOKEN }}
+          anaconda upload --label dev ${{matrix.conda-bld}}/*.tar.bz2
