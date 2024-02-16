@@ -1,10 +1,10 @@
-name: qsarpackage2
+name: qsarpackage
 channels:
   - conda-forge
   - anaconda
   - defaults
 dependencies:
-  - python=3.10
+  - python
   - click
   - numpy
   - pandas
