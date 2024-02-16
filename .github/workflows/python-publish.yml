@@ -1,19 +1,18 @@
 name: publish_conda
-
+ 
 on:
-    release:
-        types: [created, published] #TODO: change this.
-        # types: [published]
-
+  release:
+    types: [released]
+    
 jobs:
-    publish:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v2
-        - name: publish-to-conda
-          uses: hellmrf/conda-publish-action@v1.4
-          with:
-            subDir: '.conda'
-            AnacondaToken: ${{ secrets.CONDA_HELITONMRF_TOKEN }}
-            platforms: 'linux osx'
-            additional_channels: "-c helitonmrf"
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: publish-to-conda
+      uses: hellmrf/conda-publish-action@v1.5
+      with:
+        subdir: '.conda'
+        anacondatoken: ${{ secrets.CONDA_HELITONMRF_TOKEN }}
+        platforms: 'osx linux'
+        label: test
