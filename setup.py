@@ -28,6 +28,7 @@ setup(
     long_description=long_description,
     url="https://github.com/lqcapf/qsarpackage",
     # package_dir={"qsar_package": "qsar_package"},
+    include_package_data=True,
     package_data={"": ["lqtagrid/defaultFiles/AtomProva.atp", "lqtagrid/defaultFiles/ffcargasnb.itp", "lqtagrid/defaultFiles/*.csv", "md/static/*.txt"]},
     classifiers=[
         "Development Status :: 1 - Planning",
