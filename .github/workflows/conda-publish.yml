@@ -44,7 +44,7 @@ jobs:
       
       - name: conda build
         run: |
-          for pyv in 3.7 3.8 3.9 3.10 3.11 3.12; do
+          for pyv in 3.8 3.9 3.10 3.11 3.12; do
             conda build -c conda-forge -c defaults -c bioconda --python $pyv --output-folder . .
           done
       - name: anaconda upload
