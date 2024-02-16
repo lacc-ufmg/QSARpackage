@@ -5,6 +5,11 @@ package:
 source:
   path: .
 
+channels:
+  - conda-forge
+  - anaconda
+  - defaults
+
 requirements:
   build:
     - python
